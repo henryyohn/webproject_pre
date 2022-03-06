@@ -78,32 +78,6 @@ export const constantRoutes = [
   },
 
   {
-    path: '/member',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Member',
-        component: () => import('@/views/member/index'),
-        meta: { title: 'Member', icon: 'user' }
-      }
-    ]
-  },
-
-  {
-    path: '/form',
-    component: Layout,
-    children: [
-      {
-        path: 'index',
-        name: 'Form',
-        component: () => import('@/views/form/index'),
-        meta: { title: 'Form', icon: 'form' }
-      }
-    ]
-  },
-
-  {
     path: '/nested',
     component: Layout,
     redirect: '/nested/menu1',
@@ -175,6 +149,35 @@ export const constantRoutes = [
 
   // 404 page must be placed at the end !!!
   { path: '*', redirect: '/404', hidden: true }
+]
+
+export const asyncRoutes = [
+  {
+    path: '/member',
+    component: Layout,
+    meta: { roles: ['editor'] },
+    children: [
+      {
+        path: 'index',
+        name: 'Member',
+        component: () => import('@/views/member/index'),
+        meta: { title: '人员', icon: 'user', roles: ['editor'] }
+      }
+    ]
+  },
+  {
+    path: '/form',
+    component: Layout,
+    meta: { roles: ['admin'] },
+    children: [
+      {
+        path: 'index',
+        name: 'Form',
+        component: () => import('@/views/form/index'),
+        meta: { title: '表单', icon: 'form', roles: ['admin'] }
+      }
+    ]
+  }
 ]
 
 const createRouter = () => new Router({

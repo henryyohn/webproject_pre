@@ -5,6 +5,7 @@
     <breadcrumb class="breadcrumb-container" />
 
     <div class="right-menu">
+      <el-button type="primary" v-permission="['admin']" size="small" class="info-btn">消息通知</el-button>
       <el-dropdown class="avatar-container" trigger="click">
         <div class="avatar-wrapper">
           <img :src="avatar+'?imageView2/1/w/80/h/80'" class="user-avatar">
@@ -35,12 +36,14 @@
 import { mapGetters } from 'vuex'
 import Breadcrumb from '@/components/Breadcrumb'
 import Hamburger from '@/components/Hamburger'
+import permission from '@/directive/permission/index.js'
 
 export default {
   components: {
     Breadcrumb,
     Hamburger
   },
+  directives: { permission },
   computed: {
     ...mapGetters([
       'sidebar',
@@ -88,6 +91,11 @@ export default {
     float: right;
     height: 100%;
     line-height: 50px;
+    .info-btn {
+      position: absolute;
+      top: 10px;
+      right: 100px;
+    }
 
     &:focus {
       outline: none;

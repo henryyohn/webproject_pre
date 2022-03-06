@@ -43,8 +43,10 @@ import PageLayout from "@/components/PageLayout";
 import LTable from "@/components/lb-table/lb-table.vue";
 import HeadOption from "./components/HeadOption.vue";
 import InfoDetail from "./components/InfoDetail.vue";
+import pageMixin from "@/mixins/pageMixin";
 export default {
   components: { PageLayout, LTable, HeadOption, InfoDetail },
+  mixins: [pageMixin],
   data() {
     return {
       column: [
@@ -123,12 +125,20 @@ export default {
       currData: {},
     };
   },
+  computed: {
+    onClickSearch() {
+      return this.Debounce(this.onSearch, 1000, true)
+    }
+  },
   created() {
-    this.getTableData();
+    this.getTableData()
   },
   methods: {
     getTableData() {
-      this.loading = true;
+      console.log("====================================")
+      console.log("===getTableData==")
+      console.log("====================================")
+      this.loading = true
       getMemberList()
         .then((res) => {
           const { code, data } = res;
@@ -177,26 +187,28 @@ export default {
         });
     },
     handleCurrentChange() {
-      console.log("====================================");
-      console.log(this.currentPage);
-      console.log("====================================");
+      console.log("====================================")
+      console.log(this.currentPage)
+      console.log("====================================")
     },
     onClickReset(data) {
-      console.log("====================================");
-      console.log("重置：", data);
-      console.log("====================================");
+      console.log("====================================")
+      console.log("重置：", data)
+      console.log("====================================")
     },
-    onClickSearch(data) {
-      console.log("====================================");
-      console.log("搜索：", data);
-      console.log("====================================");
+    onSearch(data) {
+      console.log("====================================")
+      console.log("搜索：", data)
+      console.log("====================================")
+      // this.debounce2(this.getTableData)
+      // this.debounce2(this.getTableData)
     },
     handleClose(done) {
       this.$confirm("确认关闭？")
         .then((_) => {
           done();
         })
-        .catch((_) => {});
+        .catch((_) => {})
     },
     onClickConfirm(data) {
       console.log("====================================");

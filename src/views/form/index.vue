@@ -43,12 +43,19 @@
         <el-button type="primary" @click="onSubmit">Create</el-button>
         <el-button @click="onCancel">Cancel</el-button>
       </el-form-item>
+      <el-form-item label="renderless">
+        <form-validate #default="{validate}" :value="form.test" :rules="rules">
+          <el-input v-model="form.test" @blur="validate" />
+        </form-validate>
+      </el-form-item>
     </el-form>
   </div>
 </template>
 
 <script>
+import FormValidate from '@/components/FormValidate'
 export default {
+  components: { FormValidate },
   data() {
     return {
       form: {
@@ -59,8 +66,23 @@ export default {
         delivery: false,
         type: [],
         resource: '',
-        desc: ''
-      }
+        desc: '',
+        test: ''
+      },
+      rules: [
+        {
+          test: (value) => {
+            return !value || value.length === 0
+          },
+          message: '请输入内容'
+        },
+        {
+          test: (value) => {
+            return value.length <= 6
+          },
+          message: '内容长度必须大于6'
+        }
+      ]
     }
   },
   methods: {
